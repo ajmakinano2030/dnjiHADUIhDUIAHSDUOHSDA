@@ -1,0 +1,44 @@
+numbers = input("Enter numbers separated by commas: ")
+
+nums = []
+for n in numbers.split(","):
+    nums.append(float(n))
+
+print("\nChoose an operation:")
+print("1 - Addition")
+print("2 - Subtraction")
+print("3 - Multiplication")
+print("4 - Division")
+
+choice = input("Enter your choice (1-4): ")
+
+if choice == "1":
+    result = 0
+    for n in nums:
+        result += n
+    print("Result:", result)
+
+elif choice == "2":
+    result = nums[0]
+    for n in nums[1:]:
+        result -= n
+    print("Result:", result)
+
+elif choice == "3":
+    result = 1
+    for n in nums:
+        result *= n
+    print("Result:", result)
+
+elif choice == "4":
+    result = nums[0]
+    for n in nums[1:]:
+        if n == 0:
+            print("Error: Cannot divide by zero")
+            break
+        result /= n
+    else:
+        print("Result:", result)
+
+else:
+    print("Invalid choice")
