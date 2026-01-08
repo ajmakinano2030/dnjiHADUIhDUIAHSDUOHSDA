@@ -1,44 +1,57 @@
-numbers = input("Enter numbers separated by commas: ")
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+</head>
+<body>
+    <h1>Simple Calculator</h1>
 
-nums = []
-for n in numbers.split(","):
-    nums.append(float(n))
+    <label>Enter numbers separated by commas:</label>
+    <input type="text" id="numbers" placeholder="e.g., 2,3,4">
+    <br><br>
 
-print("\nChoose an operation:")
-print("1 - Addition")
-print("2 - Subtraction")
-print("3 - Multiplication")
-print("4 - Division")
+    <label>Choose an operation:</label>
+    <select id="operation">
+        <option value="1">Addition</option>
+        <option value="2">Subtraction</option>
+        <option value="3">Multiplication</option>
+        <option value="4">Division</option>
+    </select>
+    <br><br>
 
-choice = input("Enter your choice (1-4): ")
+    <button onclick="calculate()">Calculate</button>
 
-if choice == "1":
-    result = 0
-    for n in nums:
-        result += n
-    print("Result:", result)
+    <h2 id="result"></h2>
 
-elif choice == "2":
-    result = nums[0]
-    for n in nums[1:]:
-        result -= n
-    print("Result:", result)
+    <script>
+        function calculate() {
+            const numbers = document.getElementById("numbers").value;
+            const nums = numbers.split(",").map(Number);
 
-elif choice == "3":
-    result = 1
-    for n in nums:
-        result *= n
-    print("Result:", result)
+            const choice = document.getElementById("operation").value;
+            let result;
 
-elif choice == "4":
-    result = nums[0]
-    for n in nums[1:]:
-        if n == 0:
-            print("Error: Cannot divide by zero")
-            break
-        result /= n
-    else:
-        print("Result:", result)
+            if (choice === "1") { // Addition
+                result = nums.reduce((a, b) => a + b, 0);
+            } else if (choice === "2") { // Subtraction
+                result = nums.reduce((a, b) => a - b);
+            } else if (choice === "3") { // Multiplication
+                result = nums.reduce((a, b) => a * b, 1);
+            } else if (choice === "4") { // Division
+                if (nums.slice(1).includes(0)) {
+                    document.getElementById("result").innerText = "Error: Cannot divide by zero";
+                    return;
+                }
+                result = nums.reduce((a, b) => a / b);
+            } else {
+                document.getElementById("result").innerText = "Invalid choice";
+                return;
+            }
 
-else:
-    print("Invalid choice")
+            document.getElementById("result").innerText = "Result: " + result;
+        }
+    </script>
+</body>
+</html>
